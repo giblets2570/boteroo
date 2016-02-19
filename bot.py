@@ -1,6 +1,6 @@
 #newlinkedbot
 import argparse, os, time
-import urlparse, random
+import urlparse, random, getpass
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from bs4 import BeautifulSoup
@@ -49,12 +49,15 @@ def ViewBot(browser,keywords,number):
 def Main():
 	parser = argparse.ArgumentParser()
 	parser.add_argument("email", help="linkedin email")
-	parser.add_argument("password", help="linkedin password")
+	#parser.add_argument("password", help="linkedin password")
 	parser.add_argument("keywords", help="linkedin keywords")
 	parser.add_argument("number", help="linkedin number")
 	args = parser.parse_args()
 	keywords = args.keywords.replace(" ", "%20")
 	print(keywords)
+
+	pswd = getpass.getpass('Password:')
+
 	number = None
 	if int(args.number)>0:
 		number = int(args.number)
@@ -65,7 +68,7 @@ def Main():
 	emailElement = browser.find_element_by_id('session_key-login')
 	emailElement.send_keys(args.email)
 	passElement = browser.find_element_by_id('session_password-login')
-	passElement.send_keys(args.password)
+	passElement.send_keys(pswd)#args.password)
 	passElement.submit()
 
 	os.system('cls')
