@@ -1,0 +1,4 @@
+venv/*
+linkedinbot.py
+*.log
+
